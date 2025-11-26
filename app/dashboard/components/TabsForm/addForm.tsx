@@ -36,16 +36,7 @@ export default function AddForm({ onSuccess, onClose }: Props) {
     },
     onError: (error) => {
       if (axios.isAxiosError(error) && error.response) {
-        const { data, status } = error.response;
-        if (status === 409 && data?.errors) {
-          Object.entries(data.errors).forEach(([field, message]) => {
-            // @ts-ignore
-            methods.setError(field, { message: String(message) });
-          });
-          setNetworkError(Object.values(data.errors).join("\n"));
-        } else {
-          setNetworkError("Oops! Something went wrong. Please try again.");
-        }
+        setNetworkError("Oops! Something went wrong. Please try again.");
       } else {
         setNetworkError("Network error. Please try again.");
       }
